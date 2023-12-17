@@ -1,0 +1,4 @@
+Bill breakdown: 
+Chocolate:                ...$2.99 
+Tip:                      ...$2
+Total:                    ...$4.99
