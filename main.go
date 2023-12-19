@@ -16,9 +16,7 @@ func getInput(prompt string, reader *bufio.Reader) (string, error) {
 	return strings.TrimSpace(input), err
 }
 
-func createBill() bill {
-	reader := bufio.NewReader(os.Stdin)
-
+func createBill(reader *bufio.Reader) bill {
 	name, _ := getInput("Create a new bill name: ", reader)
 
 	b := newBill(name)
@@ -28,9 +26,7 @@ func createBill() bill {
 	return b
 }
 
-func promptOptions(b bill) {
-	reader := bufio.NewReader(os.Stdin)
-
+func promptOptions(b bill, reader *bufio.Reader) {
 	option, _ := getInput("Choose option (a - add item, s - save bill, t - add tip): ", reader)
 
 	switch option {
@@ -42,12 +38,12 @@ func promptOptions(b bill) {
 
 		if err != nil {
 			fmt.Println("The price must be a number!")
-			promptOptions(b)
+			promptOptions(b, reader)
 		}
 		b.addItem(name, parsed)
 		fmt.Println("Item added -", name, price)
 
-		promptOptions(b)
+		promptOptions(b, reader)
 	case "t":
 		tip, _ := getInput("Enter tip amount ($): ", reader)
 
@@ -55,22 +51,24 @@ func promptOptions(b bill) {
 
 		if err != nil {
 			fmt.Println("The tip must be a number!")
-			promptOptions(b)
+			promptOptions(b, reader)
 		}
 		b.updateTip(parsed)
 		fmt.Println("Tip added -", parsed)
 
-		promptOptions(b)
+		promptOptions(b, reader)
 	case "s":
 		b.save()
 	default:
 		fmt.Println("invalid option selected...")
-		promptOptions(b)
+		promptOptions(b, reader)
 	}
 }
 
 func main() {
-	myBill := createBill()
+	reader := bufio.NewReader(os.Stdin)
 
-	promptOptions(myBill)
+	myBill := createBill(reader)
+
+	promptOptions(myBill, reader)
 }

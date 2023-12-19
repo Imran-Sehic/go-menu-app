@@ -1,4 +1,4 @@
 Bill breakdown: 
-Chocolate:                ...$2.99 
-Tip:                      ...$2
-Total:                    ...$4.99
+Salad:                    ...$2 
+Tip:                      ...$3
+Total:                    ...$5.00
